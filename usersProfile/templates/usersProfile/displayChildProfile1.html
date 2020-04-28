@@ -1,0 +1,42 @@
+{% extends "e_assist/index.html" %}
+{% load static %}
+{% block content %}
+    <!-- about -->
+    <div class="about">
+        <div class="container">
+            <h3 class="w3ls-title">{{ child.child_name }}'s  Child</h3>
+            <div class="logo_profile">
+                <h1>{{ child.child_name }}</h3>
+                <h3>{{ child.child_name }}</h3>
+                <h3>{{ child.child_name }}</h3>
+                <h3>{{ child.child_name }}</h3>
+                <h3>{{ child.child_name }}</h3>
+            </div>
+            <!--<div class="col-md-3 col-sm-6 enrol-grid footer-tags">
+                <ul>
+                    <div class="logo_profile">
+                        {% for child in children %}
+                            {% if child.user_id == user_id %}
+                                <li><a href="#" class="btn">{{ child.child_name }}</a></li>
+                            {% else %}
+
+                            {% endif %}
+                        {% endfor %}
+                        <form action="{% url 'update_student_profile %}">
+                        <select name="dropdown">
+                            <option disabled="true" selected>-- Select Child --</option>
+                            {% for child in children %}
+                                {% if child.user_id == user_id %}
+                                    <option>{{ child.child_name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <input type="submit" value="click">
+                        </form>
+                    </div>
+                </ul>
+            </div>-->
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    {% endblock content %}

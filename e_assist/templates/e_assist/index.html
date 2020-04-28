@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% if title %}
+        <title>E Assist - {{ title }}</title>
+    {% else %}
+        <title>E Assist</title>
+    {% endif %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'bootstrap.css' %}" type="text/css" rel="stylesheet" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+</head>
+<body>
+<!-- header -->
+    <header>
+        <div class="main">
+            <ul class="navbar-left">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <ul class="navbar-right">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div>
+            <div class="banner">
+                <img class="banner-image" src="{% static 'images/1.jpg' %}">
+                <div class="logo">
+                    <a href="{% url 'enrol' %}" class="btn">Enroll</a>
+                </div>
+            </div>
+        </div>
+    </header>
+<!-- //header -->
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {% if messages %}
+                    {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                    {% endfor %}
+            {% endif %}
+          {% block content %}{% endblock %}
+        </div>
+        <!-- features -->
+        <div class="features about">
+            <div class="container">
+                <div class="wthree-features-row">
+                    <div class="col-md-4 features-w3grid">
+                        <div class="col-xs-3 features-w3lleft">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-xs-9 features-w3lright">
+                            <h4>CONTACT</h4>
+                            <p>+64 111 222 3333</p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="col-md-4 features-w3grid">
+                        <div class="col-xs-3 features-w3lleft">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-xs-9 features-w3lright">
+                            <h4>LOCATION</h4>
+                            <p>Unitec, Mt Albert, Auckland 1041</p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="col-md-4 features-w3grid">
+                        <div class="col-xs-3 features-w3lleft">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-xs-9 features-w3lright">
+                            <h4>EMAIL</h4>
+                            <p><a href="mailto:info@example.com"> mail@example.com</a></p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <!-- //features -->
+                <!-- footer -->
+        <div class="footer w3layouts">
+            <div class="container">
+                <div class="footer-agileinfo">
+                    <div class="col-md-3 col-sm-6 footer-grid">
+                        <h3>Useful Info</h3>
+                        <p>Lorem Ipsum was popularised In sit amet sapien eros Integer dolore magna aliqua Temporibus autem quibusdam et aut officiis debitis aut rerum necess itatibus saepe.</p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 footer-grid footer-tags">
+                        <h3>Navigation</h3>
+                        <ul>
+                            <li><a href="/"><i class="fa fa-angle-right"></i> Home</a></li>
+                            <li><a href="/about"><i class="fa fa-angle-right"></i> About</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i> Gallery</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i> Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-6 footer-grid footer-review">
+                        <h3>Newsletter</h3>
+                        <p>Maecenas sodales tortor ac ligula ultrices dictum et quis urna neque eget.</p>
+                        <form action="#" method="post">
+                            <input type="email" name="Email" placeholder="Your Email" required="">
+                            <input type="submit" value="Subscribe">
+                            <div class="clearfix"> </div>
+                        </form>
+                    </div>
+                    <div class="col-md-2 col-sm-6 footer-grid w3social">
+                        <h3>Media</h3>
+                        <ul>
+                            <li><a href="#"><i class="fa fa-google-plus"></i>Google-plus</a></li>
+                            <li><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i>Dribbble</a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right wthree">
+            <div class="container">
+                <p>© 2020 E Assist. All rights reserved </p>
+            </div>
+        </div>
+    <!-- //footer -->
+      </div>
+    </main>
+
+   <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"> </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </div>
+</body>
+</html>

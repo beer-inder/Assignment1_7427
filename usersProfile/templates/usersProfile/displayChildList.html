@@ -1,0 +1,101 @@
+{% extends "e_assist/index.html" %}
+{% load static %}
+{% block content %}
+    <!-- about -->
+
+<style>
+table {
+  width:100%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 13px;
+  text-align: left;
+}
+table#t01 tr:nth-child(even) {
+  background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+ background-color: #fff;
+}
+table#t01 th {
+  background-color: black;
+  color: white;
+}
+</style>
+
+    <div class="about">
+        <div class="container">
+            <!--<h3 class="w3ls-title">{{ user.username }}'s  Enrolled Child</h3>-->
+            <h3 style="text-align:let; color:black; font-size:300%;">{{ user.username }}'s  Enrolled Child</h3>
+            <br>
+<!--            <div class="logo_profile">
+                        {% for child in children %}
+                            {% if child.user_id == user_id %}
+                            <h3>{{ child.pk }}</h3>
+                                <a href="{% url 'display_child_profile' pk=child.pk %}" >
+                                    <h3>{{ child.child_name }}</h3>
+                                </a>
+                            {% else %}
+
+                            {% endif %}
+                        {% endfor %}
+            </div>-->
+
+                <div class="col-md-8">
+                    <table id="t01">
+                      <tr>
+                        <th><b>Name</b></th>
+                        <th><b>Age</b></th>
+                        <th><b>Gender</b></th>
+                        <th><b>Date of Birth</b></th>
+                        <th><b>Nationality</b></th>
+                        <th><b>Address</b></th>
+                        <th><b>Gaurdian</b></th>
+                        <th><b>Relation_Guardian</b></th>
+                      </tr>
+
+                        {% for child in children %}
+                            {% if child.user_id == user_id %}
+                            <tr>
+                                <a href="{% url 'display_child_profile' pk=child.pk %}" >
+                                <!--<h3>{{ child.child_name }}</h3>-->
+                                <td>{{ child.child_name }}</td>
+                                </a>
+                                <td>{{ child.child_age }}</td>
+                                <td>{{ child.gender }}</td>
+                                <td>{{ child.date_of_birth }}</td>
+                                <td>{{ child.nationality }}</td>
+                                <td>{{ child.address }}</td>
+                                <td>{{ child.guardian }}</td>
+                                <td>{{ child.relation_guardian }}</td>
+                            </tr>
+
+                            {% else %}
+
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+                <div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    {% for child in children %}
+                        {% if child.user_id == user_id %}
+                            <a href="{% url 'display_child_profile' pk=child.pk %}" >
+                                <h3 style="text-align:center; color:black">Edit Profile ...</h3>
+                            </a>
+                        {% else %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    {% endblock content %}
