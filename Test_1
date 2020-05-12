@@ -20,8 +20,8 @@ class e_assist(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        #cls.driver.close()
-        #cls.driver.quit()
+        cls.driver.close()
+        cls.driver.quit()
         print("Test Completed")
 
 if __name__ == '__main__':
