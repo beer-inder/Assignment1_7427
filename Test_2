@@ -1,0 +1,39 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import unittest
+
+class e_assist(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.driver = webdriver.Chrome(executable_path=r"C:\Users\anshu\PycharmProjects\ISCG7427_Agile\driver\chrome\chromedriver.exe")
+        cls.driver.implicitly_wait(10)
+        cls.driver.maximize_window()
+
+    def test_find_username(self):
+        self.driver.get("https://mykindergartenapp.herokuapp.com/admin/login/?next=/admin/")
+        self.driver.find_element_by_xpath("//*[@id='id_username']").send_keys("admin_beer")
+        self.driver.find_element_by_xpath("//*[@id='id_password']").send_keys("admin@123")
+        self.driver.find_element_by_xpath("/html/body/div/div[2]/div/form/div[3]/input").click()
+        self.driver.find_element_by_xpath("//*[@id='content-main']/div[2]/table/tbody/tr/th/a").click()
+        self.driver.find_element_by_xpath("//*[@id='content-main']/ul/li/a").click()        
+        self.driver.find_element_by_xpath("//*[@id='id_user']").send_keys("admin_beer")
+        self.driver.find_element_by_xpath("//*[@id='id_child_name']").send_keys("child_beer")
+        self.driver.find_element_by_xpath("//*[@id='id_age']").send_keys("5")
+        self.driver.find_element_by_xpath("//*[@id='id_date_of_birth']").send_keys("5/5/20")
+        self.driver.find_element_by_xpath("//*[@id='id_guardian']").send_keys("ABC")
+        self.driver.find_element_by_xpath("//*[@id='id_relation_guardian']").send_keys("Test")
+        self.driver.find_element_by_xpath("//*[@id='id_photo_main']").send_keys("E:/Data/New Zealand/Unitec_Study_Material/default.JPG")		
+        self.driver.find_element_by_xpath("//*[@id='student_form']/div/div/input[1]").click()
+
+
+
+    @classmethod
+    def tearDownClass(cls):
+        #cls.driver.close()
+        #cls.driver.quit()
+        print("Test Completed")
+
+#if _name_ == '_main_':
+#    unittest.main()
+
