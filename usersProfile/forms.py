@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import extendeduser, child
+from .models import extendeduser, child, guardian, activity
 
 
 class UserRegisterForm(UserCreationForm):
@@ -40,8 +40,16 @@ class StudentRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = child
-        fields = ('child_name', 'child_age', 'address',
+#        fields = ('child_name', 'child_age', 'address',
+#                  'gender', 'date_of_birth', 'nationality')
+        fields = ('child_name', 'address',
                   'gender', 'date_of_birth', 'nationality')
+
+
+class GuardianRegisterForm(forms.ModelForm):
+    class Meta:
+        model = guardian
+        fields = ['guardian_name', 'relation_guardian', 'phone_num']
 
 
 class ChildProfileUpdateForm(forms.ModelForm):
@@ -49,5 +57,20 @@ class ChildProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = child
-        fields = ['child_name', 'child_age', 'address',
+#        fields = ['child_name', 'child_age', 'address',
+#                  'gender', 'date_of_birth', 'nationality']
+        fields = ['child_name', 'address',
                   'gender', 'date_of_birth', 'nationality']
+
+
+class ActivityCreationForm(forms.ModelForm):
+    children_list = forms.ModelMultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple, queryset=child.objects.all())
+    teacher_list = User.objects.filter(is_staff=True)
+    teacher_name = forms.ModelChoiceField(
+        queryset=User.objects.filter(is_staff=True), empty_label="---------")
+
+    class Meta:
+        model = activity
+        fields = ['teacher_name', 'children_list', 'activity_name', 'activity_description',
+                  'activity_DateTime', 'activity_duration']
