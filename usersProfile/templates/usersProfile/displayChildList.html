@@ -32,46 +32,33 @@ table#t01 th {
             <!--<h3 class="w3ls-title">{{ user.username }}'s  Enrolled Child</h3>-->
             <h3 style="text-align:let; color:black; font-size:300%;">{{ user.username }}'s  Enrolled Child</h3>
             <br>
-<!--            <div class="logo_profile">
-                        {% for child in children %}
-                            {% if child.user_id == user_id %}
-                            <h3>{{ child.pk }}</h3>
-                                <a href="{% url 'display_child_profile' pk=child.pk %}" >
-                                    <h3>{{ child.child_name }}</h3>
-                                </a>
-                            {% else %}
-
-                            {% endif %}
-                        {% endfor %}
-            </div>-->
 
                 <div class="col-md-8">
                     <table id="t01">
-                      <tr>
+                        <tr>
                         <th><b>Name</b></th>
-                        <th><b>Age</b></th>
                         <th><b>Gender</b></th>
                         <th><b>Date of Birth</b></th>
                         <th><b>Nationality</b></th>
                         <th><b>Address</b></th>
-                        <th><b>Gaurdian</b></th>
+                        <th><b>Guardian</b></th>
                         <th><b>Relation_Guardian</b></th>
-                      </tr>
+                        <th><b>Check_Activity</b></th>
+                        </tr>
 
                         {% for child in children %}
                             {% if child.user_id == user_id %}
                             <tr>
-                                <a href="{% url 'display_child_profile' pk=child.pk %}" >
-                                <!--<h3>{{ child.child_name }}</h3>-->
-                                <td>{{ child.child_name }}</td>
-                                </a>
-                                <td>{{ child.child_age }}</td>
-                                <td>{{ child.gender }}</td>
-                                <td>{{ child.date_of_birth }}</td>
-                                <td>{{ child.nationality }}</td>
-                                <td>{{ child.address }}</td>
-                                <td>{{ child.guardian }}</td>
-                                <td>{{ child.relation_guardian }}</td>
+<!--                                <td><a href="{% url 'display_child_profile' pk=child.pk %}" >{{ child.child_name }}</td> -->
+                            </a>
+                            <td>{{ child.child_name }}</td>
+                            <td>{{ child.gender }}</td>
+                            <td>{{ child.date_of_birth }}</td>
+                            <td>{{ child.nationality }}</td>
+                            <td>{{ child.address }}</td>
+                            <td>{{ child.guardian_name.guardian_name }}</td>
+                            <td>{{ child.guardian_name.relation_guardian }}</td>
+                            <td><a href="{% url 'display_child_activity_list' pk=child.pk %}" ><b>Check Activity</b></td>
                             </tr>
 
                             {% else %}
@@ -79,20 +66,12 @@ table#t01 th {
                             {% endif %}
                         {% endfor %}
                     </table>
-                </div>
-                <div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    {% for child in children %}
-                        {% if child.user_id == user_id %}
-                            <a href="{% url 'display_child_profile' pk=child.pk %}" >
-                                <h3 style="text-align:center; color:black">Edit Profile ...</h3>
-                            </a>
-                        {% else %}
-                        {% endif %}
-                    {% endfor %}
+
+                    <div class="border-top pt-3">
+                        <medium class="text-muted">
+                        <a class="ml-2" href="{% url 'enrol' %}">Back</a>
+                        </medium>
+                    </div>
                 </div>
 
             <div class="clearfix"> </div>

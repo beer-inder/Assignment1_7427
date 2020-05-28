@@ -1,0 +1,40 @@
+{% extends "e_assist/index.html" %}
+{% load static %}
+{% block content %}
+    <!-- about -->
+    <br><br><br>
+    <h2>Select Operation</h2>
+
+    <form method=POST enctype="multipart/form-data">
+    {% csrf_token %}
+    <br>
+    <table>
+        <tr>
+        <td>Select Option :</td>
+        <td>
+            <select name="dropdown">
+                <option  value="" selected="selected">---SELECT---</option>
+                {% for options in displayOptions %}
+                    <option value = " {{ options }} ">{{ options }}</option>
+                {% endfor %}
+            </select>
+        </td>
+        <td><input type="submit" value="Submit"></td>
+        </tr>
+    </table><br><br><br>
+    </form>
+
+    {% if user.is_staff or user.is_superuser %}
+        <li><a href="{% url 'activity_creation' %}" class="btn"> Create Activity </a></li>
+        <li><a href="{% url 'delete_activity' %}" class="btn"> Delete Activity </a></li>
+        <li><a href="{% url 'display_options_for_activity' %}" class="btn"> Display Options For Activity </a></li>
+    {% endif %}
+    <br>
+    <div class="border-top pt-3">
+        <medium class="text-muted">
+            <a class="ml-2" href="{% url 'enrol' %}">Back</a>
+        </medium>
+    </div>
+    <br><br>
+
+{% endblock content %}

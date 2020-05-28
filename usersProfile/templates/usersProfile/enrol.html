@@ -16,9 +16,11 @@
                                 <div class="logo_profile">
                                     <!--<li><a href="studentProfile.html"><i class="fa fa-angle-right"></i> Enrol New Child</a></li>
                                     <li><a href="/about"><i class="fa fa-angle-right"></i> About</a></li>-->
-                                    <li><a href="{% url 'enrol_student' %}" class="btn"> Enrol New Child</a></li>
-                                    <li><a href="{% url 'display_child_list' %}" class="btn"> Display Child Profile</a></li>
-                                    <li><a href="/about" class="btn"> More Information</a></li>
+                                    <li><a href="{% url 'enrol_student' %}" class="btn"> Enrol New Child </a></li>
+                                    <li><a href="{% url 'display_child_list' %}" class="btn"> Display Child Profile </a></li>
+                                    {% if user.is_staff or user.is_superuser %}
+                                    <li><a href="{% url 'types_of_activity' %}" class="btn"> Activities </a></li>
+                                    {% endif %}
                                 </div>
                             </ul>
                         </div>

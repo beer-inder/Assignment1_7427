@@ -1,0 +1,76 @@
+{% extends "e_assist/index.html" %}
+{% load static %}
+{% block content %}
+    <!-- about -->
+
+<style>
+table {
+  width:100%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 13px;
+  text-align: left;
+}
+table#t01 tr:nth-child(even) {
+  background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+ background-color: #fff;
+}
+table#t01 th {
+  background-color: black;
+  color: white;
+}
+</style>
+
+    <div class="about">
+        <div class="container">
+            <!--<h3 class="w3ls-title">{{ user.username }}'s  Enrolled Child</h3>-->
+            <h3 style="text-align:let; color:black; font-size:300%;">Activity Details</h3>
+            <br>
+                <div class="col-md-8">
+                    <table id="t01">
+                      <tr>
+                        <th><b>Child Name</b></th>
+                        <th><b>Activity Name</b></th>
+                        <th><b>Activity Description</b></th>
+                        <th><b>Activity Date</b></th>
+                        <th><b>Activity Time</b></th>
+                        <th><b>Activity Duration</b></th>
+                      </tr>
+                        <br>
+                            {% if activity == None %}
+                                <div class="alert alert-info">
+                                    Sorry no records found !
+                                </div>
+                            {% else %}
+                            {% for act_list in activity %}
+                            <tr>
+                                <td>{{ child.child_name }}</td>
+                                <td>{{ act_list.activity_name }}</td>
+                                <td>{{ act_list.activity_description }}</td>
+                                <td>{{ act_list.activity_DateTime }}</td>
+                                <td>{{ act_list.activity_DateTime }}</td>
+                                <td>{{ act_list.activity_duration }}</td>
+                            </tr>
+
+                            {% endfor %}
+                            {% endif %}
+
+                    </table>
+                    <!--<li><a href="{% url 'display_child_list' %}" class="btn"> Back</a></li>
+                    <button class="btn btn-outline-info" type="submit">Back</button>-->
+                    <div class="border-top pt-3">
+                        <medium class="text-muted">
+                        <a class="ml-2" href="{% url 'display_child_list' %}">Back</a>
+                        </medium>
+                    </div>
+                </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    {% endblock content %}
