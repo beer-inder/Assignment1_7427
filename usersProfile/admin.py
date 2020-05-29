@@ -21,8 +21,8 @@ class ChildAdmin(admin.ModelAdmin):
 
 
 class Activity(admin.ModelAdmin):
-    list_display = ('activity_name', 'activity_DateTime')
-    search_fields = ('activity_name', 'activity_DateTime',)
+    list_display = ('activity_name', 'activity_Date')
+    search_fields = ('activity_name', 'activity_Date',)
     filter_horizontal = ('children_list',)
 
 

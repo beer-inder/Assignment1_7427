@@ -40,7 +40,7 @@ class child(models.Model):
         ('female', 'FEMALE'),
     }
     gender = models.CharField(max_length=20, choices=sex, default='male')
-    date_of_birth = models.CharField(max_length=20)
+    date_of_birth = models.DateField(max_length=20)
     nationality = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
     guardian_name = models.ForeignKey(
@@ -63,7 +63,7 @@ class activity(models.Model):
     children_list = models.ManyToManyField(child)
     activity_name = models.CharField(max_length=500)
     activity_description = models.CharField(max_length=1000)
-    activity_DateTime = models.DateField()
+    activity_Date = models.DateField()
     activity_duration = models.IntegerField()
 
     class Meta:

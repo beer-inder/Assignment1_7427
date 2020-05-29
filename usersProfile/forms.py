@@ -37,6 +37,9 @@ class StudentRegistrationForm1(forms.ModelForm):
 
 class StudentRegistrationForm(forms.ModelForm):
     child_name = forms.CharField()
+    date_of_birth = forms.DateField(
+        widget=forms.DateInput
+        (attrs={'placeholder': 'MM/DD/YYYY'}))
 
     class Meta:
         model = child
@@ -69,8 +72,11 @@ class ActivityCreationForm(forms.ModelForm):
     teacher_list = User.objects.filter(is_staff=True)
     teacher_name = forms.ModelChoiceField(
         queryset=User.objects.filter(is_staff=True), empty_label="---------")
+    activity_Date = forms.DateField(
+        widget=forms.DateInput
+        (attrs={'placeholder': 'MM/DD/YYYY'}))
 
     class Meta:
         model = activity
         fields = ['teacher_name', 'children_list', 'activity_name', 'activity_description',
-                  'activity_DateTime', 'activity_duration']
+                  'activity_Date', 'activity_duration']

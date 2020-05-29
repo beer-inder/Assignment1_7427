@@ -5,7 +5,7 @@
     <br><br><br>
     <h2>Select Operation</h2>
 
-    <form action="{% url 'display_activity' %}" method=POST enctype="multipart/form-data">
+    <!--<form action="{% url 'display_activity' %}" method=POST enctype="multipart/form-data">
     {% csrf_token %}
     <br>
     <table>
@@ -21,7 +21,7 @@
         <td><input type="submit" value="Submit"></td>
         </tr>
     </table><br><br><br>
-    </form>
+    </form>-->
 
     {% if user.is_staff or user.is_superuser %}
         <li><a href="{% url 'activity_creation' %}" class="btn"> Create Activity </a></li>
