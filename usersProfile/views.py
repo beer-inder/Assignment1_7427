@@ -217,17 +217,16 @@ def send_signup_mail1(email, signup_message):
 
 @shared_task
 def send_signup_mail(email, signup_message):
-    sg = sendgrid.SendGridAPIClient('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')
+    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
     from_email = Email("beerinder@mysite.com")
     to_email = To(email)
     subject = "Thank You for Joining Kindergarten"
-    content = Content("text/plain", "You are onboarded, Now login and enjoy a simpler life!")
+    content = Content("text/plain", "Your email has been subscribed successfully !")
     mail = Mail(from_email, to_email, subject, content)
     response = sg.client.mail.send.post(request_body=mail.get())
     print(response.status_code)
     print(response.body)
     print(response.headers)
-    #signup_message = """Welcome to KinderGarten !!!!!!"""
 
 def display_child_activity_list(request, pk):
     template_name = 'usersProfile/display_child_activity_list.html'
@@ -344,7 +343,7 @@ def newsletter_signup(request):
         else:
             newsletter.objects.create(email=user_email)
             messages.success(request,
-                'Your email has been submitted to the database', "alert alert-success alert-dismissible")
+                'Your email has been subscribed successfully !', "alert alert-success alert-dismissible")
             signup_message = """Your email has been subscribed successfully"""
             send_signup_mail(user_email, signup_message)
         return redirect('/')
