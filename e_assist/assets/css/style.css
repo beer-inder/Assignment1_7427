@@ -18,6 +18,16 @@ body a{
 	text-decoration:none;
 	outline:none;
 }
+.team-name h4 {
+    font-family: 'Open Sans', sans-serif;
+    /*font-size: 2.2em;
+    font-weight: 100;
+    letter-spacing: 2px;*/
+    color: #3339FF;
+    font-size: 1em;
+    text-align: center;
+    letter-spacing: 1px;
+}
 h1,h2,h3,h4,h5,h6{
 	margin:0;
 	font-family: 'Limelight', cursive;
