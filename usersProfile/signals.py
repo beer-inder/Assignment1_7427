@@ -12,14 +12,10 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         extendeduser.objects.create(user=instance)
         email = 'beerinder.mca@gmail.com'
-#        eamil_instance = notification.objects.create(email=email)
-#        eamil_instance.save()
         subject = "Thank You for Joining Kindergarten"
         from_email = settings.EMAIL_HOST_USER
         r_email = email
         signup_message = """Welcome to KinderGarten !!!!!!"""
-#        send_mail(subject=subject, from_email=from_email,
-#                  recipient_list=[r_email], message=signup_message, fail_silently=False)
 
 
 @receiver(post_save, sender=User)
@@ -35,12 +31,3 @@ def save_profile(sender, instance, **kwargs):
 @receiver(post_save, sender=activity)
 def update_child_model(sender, instance, **kwargs):
     print("****************** Do Something ***************")
-
-    #@receiver(post_save, sender=child)
-    # def create_profile(sender, instance, created, **kwargs):
-    #    if created:
-    #        child.objects.create(user=instance)
-
-    #@receiver(post_save, sender=child)
-    # def save_profile(sender, instance, **kwargs):
-    #    instance.user.save()

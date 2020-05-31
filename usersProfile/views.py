@@ -11,6 +11,8 @@ from .models import child, activity, newsletter, guardian
 from django.core.mail import send_mail
 from sendgrid.helpers.mail import *
 from celery import shared_task
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 def register(request):
     if request.method == 'POST':
@@ -19,7 +21,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request,
-                'Your account has been created! You are now able to Log In', "alert alert-success alert-dismissible")
+                             'Your account has been created! You are now able to Log In', "alert alert-success alert-dismissible")
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -36,7 +38,7 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(request,
-                'Your account has been updated', "alert alert-success alert-dismissible")
+                             'Your account has been updated', "alert alert-success alert-dismissible")
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -72,7 +74,8 @@ class ChildRegister(TemplateView):
         if form.is_valid() and guardian_form.is_valid():
             instance = form.save(commit=False)
             guardianName = guardian_form.cleaned_data.get('guardian_name')
-            relationGuardian = guardian_form.cleaned_data.get('relation_guardian')
+            relationGuardian = guardian_form.cleaned_data.get(
+                'relation_guardian')
             phoneNum = guardian_form.cleaned_data.get('phone_num')
             new_guardian = guardian(guardian_name=guardianName, relation_guardian=relationGuardian,
                                     phone_num=phoneNum)
@@ -133,18 +136,6 @@ def display_child_list(request):
     print(result)
 
 
-def display_child_profile1(request, pk=None):
-    print("reached student.views.display_child_profile")
-    child_list = child.objects.all()
-    if pk:
-        selected_child = child.objects.get(pk=pk)
-        print(selected_child, pk, selected_child.child_name)
-
-#    print(name)
-    args = {'child': selected_child}
-    return render(request, 'usersProfile/displayChildProfile.html', args)
-
-
 def display_child_profile(request, pk=None):
     template_name = 'usersProfile/updateChildProfile.html'
     child_list = child.objects.all()
@@ -164,7 +155,7 @@ def display_child_profile(request, pk=None):
         if u_form.is_valid():
             u_form.save()
             messages.success(request,
-                'Your account has been updated', "alert alert-success alert-dismissible")
+                             'Your account has been updated', "alert alert-success alert-dismissible")
             return redirect('profile')
     else:
         u_form = ChildProfileUpdateForm(instance=request.user)
@@ -175,6 +166,7 @@ def display_child_profile(request, pk=None):
     return render(request, 'usersProfile/displayChildProfile.html', context)
 
 
+@staff_member_required
 def activity_creation(request):
     teacher_list = User.objects.filter(is_staff=True)
     if request.method == 'POST':
@@ -198,7 +190,7 @@ def activity_creation(request):
             for children in listOfChildren:
                 new_activity.children_list.add(children)
             messages.success(request,
-                'Activity created successfully', "alert alert-success alert-dismissible")
+                             'Activity created successfully', "alert alert-success alert-dismissible")
             return redirect('enrol')
 
     else:
@@ -215,18 +207,23 @@ def send_signup_mail1(email, signup_message):
     send_mail(subject=subject, message=signup_message, from_email=from_email,
               recipient_list=[to_email], fail_silently=False)
 
+
 @shared_task
 def send_signup_mail(email, signup_message):
-    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+    sg = sendgrid.SendGridAPIClient(
+        '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')
     from_email = Email("beerinder@mysite.com")
     to_email = To(email)
     subject = "Thank You for Joining Kindergarten"
-    content = Content("text/plain", "Your email has been subscribed successfully !")
+    content = Content(
+        "text/plain", "You are onboarded, Now login and enjoy a simpler life!")
     mail = Mail(from_email, to_email, subject, content)
     response = sg.client.mail.send.post(request_body=mail.get())
     print(response.status_code)
     print(response.body)
     print(response.headers)
+    #signup_message = """Welcome to KinderGarten !!!!!!"""
+
 
 def display_child_activity_list(request, pk):
     template_name = 'usersProfile/display_child_activity_list.html'
@@ -240,13 +237,14 @@ def display_child_activity_list(request, pk):
         children_list__child_name=child_name)
     if not act_list:
         messages.success(request,
-                'No activity assigned to your child', "alert alert-success alert-dismissible")
+                         'No activity assigned to your child', "alert alert-success alert-dismissible")
         return redirect('display_child_list')
     else:
         args = {'child': selected_child, 'activity': act_list}
         return render(request, 'usersProfile/displayChildActivityList.html', args)
 
 
+@staff_member_required
 def types_of_activity(request):
     activity_display_options = {
         "Select_Activity",
@@ -263,6 +261,7 @@ def types_of_activity(request):
     return render(request, 'usersProfile/displayActivity.html', args, selected_option)
 
 
+@staff_member_required
 def delete_activity(request):
     if request.method == 'POST':
         selected_option = request.POST.get('dropdown')
@@ -270,17 +269,6 @@ def delete_activity(request):
         selected_Activity = activity.objects.filter(id=selected_option)
         print(selected_Activity)
         selected_Activity.delete()
-        #act = activity.objects.filter(activity_name=selected_option)
-        #for a in act:
-        #    if a.activity_name == selected_option:
-        #        activityID = a.id
-        #        print("****ID, name", activityID, a.activity_name)
-        #        act = activity.objects.filter(id=activityID).delete()
-        #        print(" Before Deleting Activity", act)
-        #        print("**********************", act)
-                # act.delete()
-
-        # act.delete()
 
         list_of_activity = activity.objects.all().order_by('-activity_Date')
         # return redirect('enrol')
@@ -315,7 +303,8 @@ def display_options_for_activity(request):
         selected_option = request.POST.get('dropdown')
         print("******* BEER *******", selected_option, type(selected_option))
         option = str('Display_All_Activities')
-        print("******* BEER *******", selected_option, type(selected_option), type(option))
+        print("******* BEER *******", selected_option,
+              type(selected_option), type(option))
 #        if(selected_option != str(option)):
         if(str(selected_option) == str(option)):
             print("**************** Into Display_All_Activities")
@@ -328,22 +317,24 @@ def display_options_for_activity(request):
         "Select_Activity",
         "Display_All_Activities"
     }
-    args = {'query_set': list_of_activity, 'displayOptions': activity_display_options,}
+    args = {'query_set': list_of_activity,
+            'displayOptions': activity_display_options, }
 
 #    return render(request, 'usersProfile/deleteActivity.html', args)
     return render(request, 'usersProfile/displayOptionsForActivity.html', args)
-    #return redirect('display_child_list')
+    # return redirect('display_child_list')
+
 
 def newsletter_signup(request):
     if request.method == 'POST':
         user_email = str(request.POST.get('Email'))
         if newsletter.objects.filter(email=user_email).exists():
             messages.warning(request,
-                'Your Email Already exists in our database', "alert alert-warning alert-dismissible")
+                             'Your Email Already exists in our database', "alert alert-warning alert-dismissible")
         else:
             newsletter.objects.create(email=user_email)
             messages.success(request,
-                'Your email has been subscribed successfully !', "alert alert-success alert-dismissible")
+                             'Your email has been submitted to the database', "alert alert-success alert-dismissible")
             signup_message = """Your email has been subscribed successfully"""
             send_signup_mail(user_email, signup_message)
         return redirect('/')

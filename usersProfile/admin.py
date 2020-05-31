@@ -14,7 +14,7 @@ class ChildAdmin(admin.ModelAdmin):
     )
 
     search_fields = ('nationality',)
-#    readonly_fields = ["child_age",]
+    readonly_fields = ["child_age", ]
 
     def parent(self, obj):
         return obj.user

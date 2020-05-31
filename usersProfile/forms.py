@@ -26,15 +26,6 @@ class UserProfileUpdateForm(forms.ModelForm):
         fields = ['phone_num', 'location']
 
 
-class StudentRegistrationForm1(forms.ModelForm):
-
-    class Meta:
-        model = child
-        fields = ['child_name']
-#        fields = ['child_name', 'age', 'gender',
-#                  'age', 'date_of_birth', 'nationality']
-
-
 class StudentRegistrationForm(forms.ModelForm):
     child_name = forms.CharField()
     date_of_birth = forms.DateField(
@@ -43,8 +34,6 @@ class StudentRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = child
-#        fields = ('child_name', 'child_age', 'address',
-#                  'gender', 'date_of_birth', 'nationality')
         fields = ('child_name', 'address',
                   'gender', 'date_of_birth', 'nationality')
 
@@ -60,8 +49,6 @@ class ChildProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = child
-#        fields = ['child_name', 'child_age', 'address',
-#                  'gender', 'date_of_birth', 'nationality']
         fields = ['child_name', 'address',
                   'gender', 'date_of_birth', 'nationality']
 
