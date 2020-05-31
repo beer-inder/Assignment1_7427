@@ -18,4 +18,18 @@ class e_assist(unittest.TestCase):
         self.driver.find_element_by_xpath("/html/body/div/div[2]/div[1]/div[1]/table/tbody/tr[2]/td[2]/a").click()
         self.driver.find_element_by_xpath("/html/body/div/div[3]/div/div/form/div[1]/label/select").click()
         self.driver.find_element_by_xpath("/html/body/div/div[3]/div/div/form/div[1]/label/select").click()
-        self.driver.find_element_by_xpath("/html/body/div/div[3]/div/dT
+        self.driver.find_element_by_xpath("/html/body/div/div[3]/div/div/form/div[2]/table/tbody/tr[6]/td[1]/input").click()
+        self.driver.find_element_by_xpath("/html/body/div/div[3]/div/div/form/div[1]/button").click()
+        self.driver.find_element_by_xpath("/html/body/div/div[3]/form/div/input[4]").click()
+
+    @classmethod
+    def tearDownClass(cls):
+        # cls.driver.close()
+        # cls.driver.quit()
+        print("Test Completed")
+
+    # if _name_ == '_main_':
+    #    unittest.main()
+
+
+
