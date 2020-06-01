@@ -65,7 +65,7 @@ ul li.active a{
 
 .logo{
     position: absolute;
-    top: 20%;
+    top: 26%;
     left: 10%;
     transform: translate(-50%, -50%);
 }
@@ -99,6 +99,13 @@ ul li.active a{
     top: 20%;
     left: 10%;
     transform: translate(-50%, -50%);*/
+}
+.team-name {
+    font-family: 'Limelight', cursive;
+    color: #45bbff;
+    font-size: 1em;
+    text-align: justify;
+    letter-spacing: 1px;
 }
 
 .btn_profile{
