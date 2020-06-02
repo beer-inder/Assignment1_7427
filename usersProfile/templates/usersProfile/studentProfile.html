@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
+        <br><br>
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
@@ -12,6 +13,7 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Submit</button>
+                <a href="{% url 'enrol' %}" class="btn"> Cancel </a>
             </div>
         </form>
     </div>

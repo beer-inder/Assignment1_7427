@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from .models import extendeduser, child, guardian, activity
 
@@ -57,11 +58,10 @@ class ActivityCreationForm(forms.ModelForm):
     children_list = forms.ModelMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple, queryset=child.objects.all())
     teacher_list = User.objects.filter(is_staff=True)
-    teacher_name = forms.ModelChoiceField(
-        queryset=User.objects.filter(is_staff=True), empty_label="---------")
-    activity_Date = forms.DateField(
-        widget=forms.DateInput
-        (attrs={'placeholder': 'MM/DD/YYYY'}))
+    teacher_name = forms.ModelChoiceField(queryset=User.objects.filter(
+        Q(is_staff=True) & Q(is_superuser=False)), empty_label="---------")
+    activity_Date = forms.DateField(widget=forms.DateInput(
+        attrs={'placeholder': 'MM/DD/YYYY'}))
 
     class Meta:
         model = activity
