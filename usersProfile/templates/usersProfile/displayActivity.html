@@ -26,6 +26,7 @@
     {% if user.is_staff or user.is_superuser %}
         <li><a href="{% url 'activity_creation' %}" class="btn"> Create Activity </a></li>
         <li><a href="{% url 'delete_activity' %}" class="btn"> Delete Activity </a></li>
+        <li><a href="{% url 'display_list_of_activity' %}" class="btn"> Dsiplay Activities </a></li>
     {% endif %}
     <br><br>
     <a href="{% url 'enrol' %}" class="btn"> Back </a>

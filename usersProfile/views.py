@@ -325,6 +325,15 @@ def display_options_for_activity(request):
     # return redirect('display_child_list')
 
 
+@staff_member_required
+def display_list_of_activity(request):
+    print("Insided display_list_of_activity")
+    list_of_activity = activity.objects.all()
+    args = {'query_set': list_of_activity, }
+
+    return render(request, 'usersProfile/display_list_of_activity.html', args)
+
+
 def newsletter_signup(request):
     if request.method == 'POST':
         user_email = str(request.POST.get('Email'))

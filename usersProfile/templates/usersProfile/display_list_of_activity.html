@@ -28,23 +28,6 @@ table#t01 th {
 </style>
 
 <br><br><br>
-<h2>Select Activity to Delete</h2>
-
-<form method=POST enctype="multipart/form-data">
-    {% csrf_token %}
-    <br>
-        <tr>
-            <td>Select Option :</td>
-            <td>
-                <select name="dropdown">
-                    {% for options in query_set %}
-                <!--    <input type="dropdown" name="dropdown" id="options{{ forloop.counter }}" value="{{ options.id }}">-->
-                    <option value = " {{ options.id }} " placeholder="Your Email" >{{ options }}</option>
-                    {% endfor %}
-                </select>
-            </td>
-            <td><input type="submit" value="Submit"></td>
-</form>
 <div class="about">
         <div class="container">
             <!--<h3 class="w3ls-title">{{ user.username }}'s  Enrolled Child</h3>-->
@@ -77,9 +60,7 @@ table#t01 th {
 
                     </table>
                     <br>
-                    <!--<li><a href="{% url 'display_child_list' %}" class="btn"> Back</a></li>
-                    <button class="btn btn-outline-info" type="submit">Back</button>-->
-                    <a href="{% url 'display_child_list' %}" class="btn"> Back </a>
+                    <a href="{% url 'enrol' %}" class="btn"> Back </a>
                 </div>
             <div class="clearfix"> </div>
         </div>
